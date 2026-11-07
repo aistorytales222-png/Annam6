@@ -43,7 +43,7 @@
   <section class="hero" id="top">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="eyebrow" data-en="Ginza, Tokyo &bull; Travelers' Choice 2026" data-jp="東京・銀座 &bull; トラベラーズチョイス2026">Ginza, Tokyo &bull; Travelers' Choice 2026</p>
+      <p class="eyebrow" data-en="Ginza, Tokyo" data-jp="東京・銀座">Ginza, Tokyo</p>
       <h1 data-en="The flavours of India,<br/>in the heart of Ginza." data-jp="銀座の真ん中で、<br/>本格インドの味を。">The flavours of India,<br/>in the heart of Ginza.</h1>
       <p class="hero-sub" data-en="Vibrant spices, chef-driven recipes and quality ingredients. Open daily until 3:00 AM." data-jp="香り高いスパイス、シェフこだわりのレシピ、上質な食材。毎日午前3時まで営業。">Vibrant spices, chef-driven recipes and quality ingredients. Open daily until 3:00 AM.</p>
       <div class="hero-buttons">
@@ -56,8 +56,8 @@
 
   <!-- STATS STRIP -->
   <section class="stats">
-    <div class="stat reveal"><strong>4.4</strong><span data-en="Tripadvisor rating" data-jp="Tripadvisor評価">Tripadvisor rating</span></div>
-    <div class="stat reveal"><strong>691</strong><span data-en="Guest reviews" data-jp="口コミ">Guest reviews</span></div>
+    <div class="stat reveal"><strong>1962</strong><span data-en="Serving Tokyo since" data-jp="創業">Serving Tokyo since</span></div>
+    <div class="stat reveal"><strong>100%</strong><span data-en="Halal" data-jp="ハラール">Halal</span></div>
     <div class="stat reveal"><strong class="stat-hours">11:00 AM - 3:00 AM <small>(next day)</small></strong><span data-en="Open late, every day" data-jp="毎日深夜まで営業">Open late, every day</span></div>
     <div class="stat reveal"><strong>50</strong><span data-en="Seats + private rooms" data-jp="席数・個室あり">Seats + private rooms</span></div>
   </section>
@@ -191,7 +191,10 @@
       <a href="#top" class="logo"><img src="images/logo.jpg" alt="Annam logo" class="logo-img" />Annam<span>.</span></a>
       <p>Authentic Indian Cuisine &bull; Ginza, Tokyo</p>
     </div>
-    <p class="small">&copy; 2026 Concept design by [YOUR NAME]. Not the official website. All trademarks belong to their owners.</p>
+    <div>
+      <p class="small">&copy; 2026 Concept design by [YOUR NAME]. Not the official website. All trademarks belong to their owners.</p>
+      <p class="small"><a href="reviews.html" style="text-decoration:underline;">See all customer reviews</a></p>
+    </div>
   </footer>
 
   <!-- DISH REVIEW DIALOG -->
@@ -202,7 +205,7 @@
       <div id="dlgReviews"></div>
       <p class="dlg-sub" data-en="How was it?" data-jp="いかがでしたか？">How was it?</p>
       <div class="stars" id="starPicker" role="group" aria-label="Rating"></div>
-      <label>Your name<input id="revName" maxlength="40" placeholder="Name (optional)" /></label>
+      <label>Your name<input id="revName" maxlength="40" placeholder="Your name" required /></label>
       <label>Your review<textarea id="revText" rows="3" maxlength="300" placeholder="Tell us what you loved..."></textarea></label>
       <button type="submit" class="btn btn-gold">Submit review</button>
       <p id="dlgMsg"></p>

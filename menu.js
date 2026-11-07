@@ -6,10 +6,6 @@
 (function () {
   "use strict";
 
-  // ====== CHANGE THIS to your real Tripadvisor page ======
-  const TA_URL = "";
-  // =======================================================
-
   const REV_KEY = "annamReviews";
   const read = (k) => {
     try { return JSON.parse(localStorage.getItem(k)) || {}; } catch (e) { return {}; }
@@ -24,9 +20,7 @@
   // Turn the compact arrays from menu-data.js into objects
   const cats = MENU_CATEGORIES.map((c) => ({
     id: c.id, en: c.en, jp: c.jp, noteEn: c.noteEn || "", noteJp: c.noteJp || "",
-    items: c.items.map(([name, price, en, jp, mentions]) => ({
-      name, price, en, jp, mentions: mentions || 0,
-    })),
+    items: c.items.map(([name, price, en, jp]) => ({ name, price, en, jp })),
   }));
   const allItems = cats.flatMap((c) => c.items);
 
@@ -89,17 +83,13 @@
       return `<small class="rev-sum muted">${jp ? "最初のレビューを書きませんか？" : "Be the first to review"}</small>`;
     }
     const avg = revs.reduce((s, r) => s + r.rating, 0) / revs.length;
-    return `<small class="rev-sum"><b>&#9733; ${avg.toFixed(1)}</b> (${revs.length} ${jp ? "件" : revs.length === 1 ? "review" : "reviews"})</small>`;
+    return `<button class="rev-open" data-name="${esc(it.name)}"><b>&#9733; ${avg.toFixed(1)}</b> (${revs.length} ${jp ? "件" : revs.length === 1 ? "review" : "reviews"})</button>`;
   }
 
   function itemHTML(it, reviews) {
     const jp = isJP();
     const desc = jp && it.jp ? it.jp : it.en;
     const revs = reviews[it.name] || [];
-    const popular = it.mentions >= 10
-      ? `<small class="tag">${jp ? "人気" : "Popular"}</small>` : "";
-    const ta = it.mentions
-      ? `<a class="ta-link" href="${TA_URL}" target="_blank" rel="noopener">${it.mentions} Tripadvisor ${jp ? "件の口コミ" : "reviews"} &#8599;</a>` : "";
     const preview = revs.slice(0, 2).map((r) => {
       const t = r.text && r.text.length > 90 ? r.text.slice(0, 90) + "\u2026" : (r.text || "");
       return `<div class="rev-prev"><span class="stars-static">${"&#9733;".repeat(r.rating)}</span> <b>${esc(r.name)}</b>${t ? " &ndash; " + esc(t) : ""}</div>`;
@@ -109,10 +99,10 @@
     return `
       <li class="dish">
         <div class="dish-main">
-          <h4>${esc(it.name)} ${popular}</h4>
+          <h4>${esc(it.name)}</h4>
           <p>${esc(desc)}</p>
           <div class="dish-meta">
-            ${summary(it, revs)} ${ta}
+            ${summary(it, revs)}
             <button class="btn-mini" data-name="${esc(it.name)}">${jp ? "レビューを書く" : "Write a review"}</button>
             <button class="btn-add" data-add="${esc(it.name)}">${jp ? "+ 追加" : "+ Add"}</button>
           </div>
@@ -196,7 +186,7 @@
   }
 
   listEl.addEventListener("click", (e) => {
-    const b = e.target.closest(".btn-mini, .see-all");
+    const b = e.target.closest(".btn-mini, .see-all, .rev-open");
     if (!b) return;
     const it = allItems.find((x) => x.name === b.dataset.name);
     if (it) openDialog(it);
